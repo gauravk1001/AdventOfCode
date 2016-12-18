@@ -1,8 +1,5 @@
 import re
 
-log_x = []
-log_y = []
-
 keypad = [['0', '0', '0', '0', '0', '0', '0'],
             ['0', '0', '0', '1', '0', '0', '0'],
             ['0', '0', '2', '3', '4', '0', '0'],
@@ -36,7 +33,6 @@ def move(xstart, ystart, direction):
         xnew = (xstart + 1) if keypad[xstart + 1][ystart] != '0' else xstart
         ynew = ystart
 
-    # print 'moved'
     return (xnew, ynew)
 
 def find_code(input):
@@ -47,12 +43,8 @@ def find_code(input):
     xnew = 3
     ynew = 1
     for line in input:
-        print '\nstarted at ', xstart, ystart, ' and processing ', line
-        # xnew = xstart
-        # ynew = ystart
         for direction in line:
             xnew, ynew = move(xnew, ynew, direction)
-            print xnew, ynew, '.',
 
         code = code + keypad[xnew][ynew]
         xstart = xnew

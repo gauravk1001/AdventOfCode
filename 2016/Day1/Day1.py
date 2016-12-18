@@ -32,18 +32,18 @@ def get_heading(current, turn):
     return heading
 
 def check_log(x, y):
-    print 'logging', x, y
+    # print 'logging', x, y
     ctr = -1
     for a,b in zip(log_x, log_y):
         ctr += 1
         if x == a and y == b:
-            print 'match at index', ctr + 1
+            # print 'match at index', ctr + 1
             return True
 
     log_x.append(x)
     log_y.append(y)
 
-    print log_x, '\n', log_y
+    # print log_x, '\n', log_y
 
     return False
 
@@ -58,7 +58,7 @@ def find_distance(input):
 
     # loop to run for each direction
     for direction in directions:
-        print '\nprocessing ', direction
+        # print '\nprocessing ', direction
 
         # get the direction for the head
         heading = get_heading(current, direction[0])
@@ -101,14 +101,14 @@ def find_distance(input):
         for i in xrange(1, steps + 1):
             if xsteps == 0:
                 if check_log(xprev, yprev + pn * i):
-                    print 'already visited ', xprev, yprev + pn * i
+                    # print 'already visited ', xprev, yprev + pn * i
                     xstop = xprev
                     ystop = yprev + pn * i
                     stop = True
                     break
             elif ysteps == 0:
                 if check_log(xprev + pn * i, yprev):
-                    print 'already visited ', xprev + pn * i, yprev
+                    # print 'already visited ', xprev + pn * i, yprev
                     xstop = xprev + pn * i
                     ystop = yprev
                     stop = True
