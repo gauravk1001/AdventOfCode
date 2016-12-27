@@ -8,43 +8,37 @@ def read_file():
 	#print input
 	return input
 
+#def map_letters(sorted_letters):
+#	for 
+
 def find_sum_of_room_checksums(input):
 	room_list = []
 	bigsum = 0
-	for line in input[:10]:
-		# room = re.findall(r'^([a-z]+)-([a-z]+.{1})+(\d+)(\[[a-z]+\])\n$', line)
+	for line in input:
 		split_string = re.findall(r'([a-z-]+)+(\d+)(\[[a-z]+\])\n', line)
 		letters = ''.join(split_string[0][0].split('-'))
 		numbers = split_string[0][1]
 		checksum = split_string[0][2][1:-1]
 		room_list.append([letters, numbers, checksum])
 
-		sorted_letters = sorted(letters)
-		#print '\nletters, sorted-letters: ', letters, sorted_letters,
-		valid = True
+		#print ''.join(sorted(letters))
+		sorted_letters = Counter(letters).items()
+		sorted_letters.sort(key=lambda tup: tup[0])
+		sorted_letters.sort(key=lambda tup: -tup[1])
+		#print '\nletters, sorted-letters: ', letters, sorted_letters
 		should_match_checksum = ''
-		list_sorted_letters = sorted_letters.items()i
-		ctr = 0
-		print sorted_letters.iteritems()
-		for k in sorted_letters:
-			if ctr >= len(checksum):
-				break
+		#for i in xrange(len(sorted_letters) - 1, len(sorted_letters) - 6, -1):
+		for i in xrange(0, 5, 1):
+			#print sorted_letters[i],
+			should_match_checksum += sorted_letters[i][0]
 
-			print k, '; ',
-			should_match_checksum += str(k)
-
-			ctr += 1
-
-		print should_match_checksum
 		if should_match_checksum == checksum:
 			bigsum += int(numbers)
-			print split_string, 'was valid', checksum, valid, bigsum
-		else:
-			print split_string, 'was invalid', checksum, valid, bigsum
+			#print should_match_checksum, 'was valid', checksum, bigsum
+		#else:
+			#print should_match_checksum, 'was invalid', checksum, bigsum
 
-	#print room_list
-
-	return len(room_list)
+	return bigsum
 
 if __name__ == '__main__':
 	print find_sum_of_room_checksums(read_file())
