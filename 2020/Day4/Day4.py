@@ -20,13 +20,16 @@ def check_valid_password(text):
     while i < len(text):
         line = text[i]
 
-        print('curr line=' + line)
+        #print('curr line=' + line)
         if line != '\n':
             blob = blob + text[i]
             i += 1
-            continue
-    
-        print('line=' + blob)
+            
+            # If we are not on the last line if the entire text, then continue
+            if i <= len(text) - 1:
+                continue
+
+        #print('line=' + blob)
 
         # Check if all the required_fields are in the current blob
         # Count the fields that are in the current blob too
@@ -36,11 +39,11 @@ def check_valid_password(text):
                 if not required_fields[field]:
                     required_fields[field] = True
                 else:
-                    print('line contains many ' + field)
+                    #print('line contains many ' + field)
                     required_fields[field] = False
                     break
             else:
-                print('line does not contain' + field)
+                #print('line does not contain' + field)
                 #required_fields[field] = False
                 break
 
@@ -48,16 +51,16 @@ def check_valid_password(text):
         # even one single false in the dict, we dont have a passport
         if False in required_fields.values():
             count_non_passport += 1
-            print('line not pass' + str(count_non_passport))
+            #print('line not pass' + str(count_non_passport))
         else: # it is a passport because all the required fields are in the blob
             count_passport += 1
-            print('line counted' + str(count_passport))
+            #print('line counted' + str(count_passport))
 
         # reset blob to empty and increment to next line
         blob = ''
         i += 1
         required_fields = required_fields.fromkeys(required_fields, False)
-        print('\n--')
+        #print('\n--')
 
     print('pass=' + str(count_passport))
     print('non pass=' + str(count_non_passport))
