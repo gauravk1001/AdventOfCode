@@ -1,0 +1,11 @@
+current found letter in  wtnhxymk2231254 is 2 and password is now 2
+current found letter in  wtnhxymk2440385 is 4 and password is now 24
+current found letter in  wtnhxymk2640705 is 1 and password is now 241
+current found letter in  wtnhxymk3115031 is 4 and password is now 2414
+current found letter in  wtnhxymk5045682 is b and password is now 2414b
+current found letter in  wtnhxymk8562236 is c and password is now 2414bc
+current found letter in  wtnhxymk9103137 is 7 and password is now 2414bc7
+current found letter in  wtnhxymk9433034 is 7 and password is now 2414bc77
+len of password was 8
+2414bc77
+time to run:  0.000194182032788
