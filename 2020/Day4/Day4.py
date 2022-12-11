@@ -2,9 +2,9 @@ import re
 import os
 
 def check_valid_password(text):
-
     i = 0
     blob = ''
+
     required_fields = {
         'byr:': False,
         'iyr:': False,
@@ -14,6 +14,8 @@ def check_valid_password(text):
         'ecl:': False,
         'pid:': False
         }
+    required_fields_count = required_fields.fromkeys(required_fields, 0)
+
     count_passport = 0
     count_non_passport = 0
 
@@ -36,16 +38,22 @@ def check_valid_password(text):
         #field_count = 0
         for field in required_fields.keys():
             if field in blob:
-                if not required_fields[field]:
+                if required_fields_count[field] == 0 and not required_fields[field]:
                     reg = field + '([a-z0-9#]+)'
                     values = re.search(reg, blob)
                     print('val found for ' + field + ' = ' + str(values))
+
+                    # Validating the field contains value as per the rules
+                    # If valid, returns true, else false
                     bool = validateFields(field[0:-1], values.group(1))
                     #print('val fields returns=' + str(bool))
+                    # Mark the field as true or false from validation
                     required_fields[field] = bool
-                else:
-                    print('line contains many ' + field)
-                    required_fields[field] = False
+                    required_fields_count[field] += 1
+
+                elif required_fields_count[field] > 0:
+
+                    print('current field ' +  field + 'while line already has it')
                     break
             else:
                 print('line does not contain' + field)
@@ -67,6 +75,9 @@ def check_valid_password(text):
         blob = ''
         i += 1
         required_fields = required_fields.fromkeys(required_fields, False)
+        required_fields_count = required_fields.fromkeys(required_fields, 0)
+        print('count of pass=' + str(count_passport))
+        print('count of non pass=' + str(count_non_passport))
         print('\n--')
 
     print('pass=' + str(count_passport))
@@ -85,7 +96,7 @@ def validateFields(field, value):
             #print('valid iyr' + value)
             return True
     elif field == 'eyr':
-        if len(value) <= 4 and int(value) >= 2002 and int (value) <= 2030:
+        if len(value) <= 4 and int(value) >= 2020 and int (value) <= 2030:
             #print('valid eyr' + value)
             return True
     elif field == 'hgt':
@@ -112,8 +123,6 @@ def validateFields(field, value):
         if matches is not None:
             #print('matched=' + matches.group(0))
             return True
-    elif field == 'cid':
-        return True
     
     return False
 
@@ -126,3 +135,14 @@ def get_input():
 
 if __name__ == "__main__":
     check_valid_password(get_input())
+    # #required_fields = {
+    #     'byr:': False,
+    #     'iyr:': False,
+    #     'eyr:': False,
+    #     'hgt:': False,
+    #     'hcl:': False,
+    #     'ecl:': False,
+    #     'pid:': False
+    #     }
+    #required_fields_count = required_fields.fromkeys(required_fields, 0)
+    #print(required_fields_count)
